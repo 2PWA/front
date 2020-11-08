@@ -15,7 +15,7 @@ export class UserService {
   }
 
   public findByUsername(username: string): Observable<User> {
-    return this.httpClient.get<User>('https://ppwa-security.herokuapp.com/api/users/' + username);
+    return this.httpClient.get<User>('https://ppwa-users.herokuapp.com/api/users/' + username);
   }
 
   public create(newUser: NewUser): Observable<any> {
@@ -23,7 +23,7 @@ export class UserService {
     headers = headers.append('Content-Type', 'application/json');
     headers = headers.append('Authorization', 'Bearer ' + this.cookieService.get('accessToken'));
     const options = { headers };
-    return this.httpClient.post('https://ppwa-security.herokuapp.com/api/users', newUser, options);
+    return this.httpClient.post('https://ppwa-users.herokuapp.com/api/users', newUser, options);
   }
 
   public update(newUser: NewUser): Observable<any> {
@@ -31,7 +31,7 @@ export class UserService {
     headers = headers.append('Content-Type', 'application/json');
     headers = headers.append('Authorization', 'Bearer ' + this.cookieService.get('accessToken'));
     const options = { headers };
-    return this.httpClient.put('https://ppwa-security.herokuapp.com/api/users', newUser, options);
+    return this.httpClient.put('https://ppwa-users.herokuapp.com/api/users', newUser, options);
   }
 
   public delete(username: string, verificationCode: number, uuid: string): Observable<any> {
@@ -39,7 +39,7 @@ export class UserService {
     headers = headers.append('Content-Type', 'application/json');
     headers = headers.append('Authorization', 'Bearer ' + this.cookieService.get('accessToken'));
     const options = { headers, body: { uuid, otpCode: verificationCode }};
-    return this.httpClient.delete('https://ppwa-security.herokuapp.com/api/users/' + username, options);
+    return this.httpClient.delete('https://ppwa-users.herokuapp.com/api/users/' + username, options);
   }
 
   public setNewUsername(username: string) {

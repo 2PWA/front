@@ -14,6 +14,6 @@ export class OtpService {
     const options = { };
     options['headers'] = headers;
     options['responseType'] = 'text';
-    return this.httpClient.get<string>('https://ppwa-security.herokuapp.com/api/otp', options);
+    return this.httpClient.get<string>('https://ppwa-users.herokuapp.com/api/otp', options);
   }
 }
