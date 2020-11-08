@@ -18,7 +18,7 @@ export class LoginService {
 
     const body = new HttpParams().set('username', username).set('password', password).set('grant_type', 'password');
 
-    return this.httpClient.post('http://localhost:8282/oauth/token', body, {headers});
+    return this.httpClient.post('https://ppwa-users.herokuapp.com/oauth/token', body, {headers});
   }
 
 }
