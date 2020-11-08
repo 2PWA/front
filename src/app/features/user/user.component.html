@@ -14,6 +14,14 @@
         <label for="passwordInput">Password</label>
         <input type="password" class="form-control" id="passwordInput" name="passwordInput" [(ngModel)]="newUser.password">
       </div>
+      <div class="form-group">
+        <label for="countryCodeInput">Country code</label>
+        <input type="number" class="form-control" id="countryCodeInput" name="countryCodeInput" [(ngModel)]="newUser.countryCode">
+      </div>
+      <div class="form-group">
+        <label for="phoneNumberInput">Phone number</label>
+        <input type="number" class="form-control" id="phoneNumberInput" name="phoneNumberInput" [(ngModel)]="newUser.phoneNumber">
+      </div>
       <div class="form-group form-check">
         <input type="checkbox" class="form-check-input" id="isAdmin" [(ngModel)]="newUser.admin">
         <label class="form-check-label" for="isAdmin">Is admin?</label>
@@ -38,13 +46,21 @@
           <label for="passwordInput">New password</label>
           <input type="password" class="form-control" id="passwordInput" name="passwordInput" [(ngModel)]="newPassword">
         </div>
+        <div class="form-group">
+          <label for="countryCodeInput">Country code</label>
+          <input type="number" class="form-control" id="countryCodeInput" name="countryCodeInput" [(ngModel)]="userSearch.countryCode">
+        </div>
+        <div class="form-group">
+          <label for="phoneNumberInput">Phone number</label>
+          <input type="number" class="form-control" id="phoneNumberInput" name="phoneNumberInput" [(ngModel)]="userSearch.phoneNumber">
+        </div>
         <div class="form-group form-check">
           <input type="checkbox" class="form-check-input" id="isAdminSearch" [(ngModel)]="userSearch.admin">
           <label class="form-check-label" for="isAdminSearch">Is admin?</label>
         </div>
         <div class="row">
           <button type="submit" class="btn btn-primary mx-auto" (click)="update()">Update</button>
-          <button type="submit" class="btn btn-primary mx-auto" (click)="delete()">Delete</button>
+          <button type="submit" class="btn btn-primary mx-auto" (click)="generateCode()">Delete</button>
         </div>
       </div>
     </div>

@@ -34,10 +34,11 @@ export class UserService {
     return this.httpClient.put('http://localhost:8283/api/users', newUser, options);
   }
 
-  public delete(username: string): Observable<any> {
+  public delete(username: string, verificationCode: number, uuid: string): Observable<any> {
     let headers = new HttpHeaders();
+    headers = headers.append('Content-Type', 'application/json');
     headers = headers.append('Authorization', 'Bearer ' + this.cookieService.get('accessToken'));
-    const options = { headers };
+    const options = { headers, body: { uuid, otpCode: verificationCode }};
     return this.httpClient.delete('http://localhost:8283/api/users/' + username, options);
   }
 

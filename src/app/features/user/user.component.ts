@@ -4,6 +4,8 @@ import { UserService } from 'src/app/core/services/user.service';
 import { User } from 'src/app/core/models/user';
 import { Router } from '@angular/router';
 import { NewUser } from 'src/app/core/models/new-user';
+import { OtpService } from 'src/app/core/services/otp.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-user',
@@ -19,10 +21,9 @@ export class UserComponent implements OnInit {
   public userSearch = new User();
   public newPassword: string;
   public updateUser = new NewUser();
+  constructor(private readonly userService: UserService, private readonly otpService: OtpService,
+              private readonly router: Router, private readonly cookieService: CookieService) {
 
-  constructor(private userService: UserService,
-              private router: Router,
-              private cookieService: CookieService) {
     this.userService.findByUsername(this.cookieService.get('currentUsername'))
                     .subscribe(user => this.validatePermisions(user));
    }
@@ -46,13 +47,16 @@ export class UserComponent implements OnInit {
                       this.messageCreation = 'User created';
                       this.newUser.username = '';
                       this.newUser.password = '';
+                      this.newUser.countryCode = '';
+                      this.newUser.phoneNumber = '';
                       this.newUser.admin = false;
                     }, _ => this.messageCreation = 'Error creating user');
   }
 
   public search(): void {
     this.userService.findByUsername(this.usernameSearch)
-                    .subscribe(user => this.userSearch = user);
+                    .subscribe(user => this.userSearch = user,
+                      error => Swal.fire({icon: 'error', title: 'Oops...', text: `User ${this.usernameSearch} does not exist`}));
   }
 
   public update(): void {
@@ -74,13 +78,35 @@ export class UserComponent implements OnInit {
                     }, _ => this.messageSearch = 'Error updating user');
   }
 
-  public delete(): void {
-    this.userService.delete(this.userSearch.username)
+  private delete(verificationCode: number, uuid: string): void {
+    this.userService.delete(this.userSearch.username, verificationCode, uuid)
                     .subscribe(_ => {
+                      Swal.fire('Good job!', `User ${this.userSearch.username} was removed`, 'success');
                       this.messageSearch = 'User deleted';
                       this.usernameSearch = '';
                       this.updateUser = new NewUser();
                       this.userSearch = new User();
-                    }, _ => this.messageSearch = 'Error deleting user');
+                    }, _ => {
+                      this.messageSearch = 'Error deleting user';
+                      Swal.fire({icon: 'error', title: 'Oops...', text: 'Bad verification code. Try again!'});
+                    });
+  }
+
+  public generateCode(): void {
+    this.otpService.generate().subscribe(uuid => {
+      Swal.fire({
+        title: 'Confirm delete user',
+        input: 'number',
+        inputLabel: 'Enter the verification code sent to WhatsApp',
+        inputPlaceholder: 'Verification code',
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+        inputValidator: (value) => {
+          return !value && 'You need to write something!';
+        }
+      }).then(result => {
+        this.delete(result.value, uuid);
+      });
+    }, err => Swal.fire({icon: 'error', title: 'Oops...', text: `Something went wrong generating access code`}));
   }
 }
