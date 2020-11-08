@@ -1,0 +1,21 @@
+<div class="container">
+  <a href="/users" *ngIf="user?.admin">Users</a>
+  <h3>TV Shows</h3>
+  <br>
+  <div class="row">
+    <div class="form-group col-md-6">
+      <input type="text" class="form-control" id="searchInput" name="searchInput" [(ngModel)]="keywords">
+    </div>
+    <button type="submit" class="btn btn-primary" (click)="search()">Search</button>
+  </div>
+  <br><br>
+  <div class="row">
+    <div class="card" style="width: 17rem;" *ngFor="let show of allShows">
+      <img [src]="show?.image?.medium" class="card-img-top" alt="There is not image avalible">
+      <div class="card-body">
+        <h5 class="card-title">{{show?.name}}</h5>
+        <button class="btn btn-primary" (click)="viewDetail(show)">View detail</button>
+      </div>
+    </div>
+  </div>
+</div>

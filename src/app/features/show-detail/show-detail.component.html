@@ -1,0 +1,41 @@
+<div class="container">
+  <a href="/shows">Shows</a>
+  <h3>TV Shows</h3>
+  <div class="row">
+    <div class="card">
+      <img [src]="selectedShow.image.original" class="card-img-top" alt="There is not image avalible">
+      <div class="card-body">
+        <h5 class="card-title">{{selectedShow.name}}</h5>
+        <p>{{selectedShow.summary}}</p>
+        <h4>Cast</h4>
+        <div class="row" *ngFor="let cast of castList">
+          <div class="card mx-auto" style="width: 18rem;" >
+            <img [src]="cast?.person?.image?.medium" class="card-img-top" alt="There is not image avalible">
+            <div class="card-body">
+              <h5 class="card-title">{{cast.person.name}}</h5>
+            </div>
+          </div>
+          <div class="card mx-auto" style="width: 18rem;" >
+            <img [src]="cast?.character?.image?.medium" class="card-img-top" alt="There is not image avalible">
+            <div class="card-body">
+              <h5 class="card-title">{{cast.character.name}}</h5>
+            </div>
+          </div>
+        </div>
+        <h4>Seasons</h4>
+        <div class="row">
+          <div class="card" style="width: 17rem;" *ngFor="let season of seasonsList">
+            <img [src]="season?.image?.medium" class="card-img-top" alt="There is not image avalible">
+            <div class="card-body">
+              <h5 class="card-title">Season #{{season.number}}</h5>
+              <h6>Episodes</h6>
+              <ul class="list-group">
+                <li class="list-group-item" *ngFor="let episode of season.episodes">{{episode}}</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

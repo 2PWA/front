@@ -1,0 +1,52 @@
+<div class="container">
+  <a href="/shows">Shows</a>
+  <h3>User management</h3>
+  <br><br>
+  <div class="row">
+    <div class="col-md-5">
+      <h5>Create user</h5>
+      <span>{{messageCreation}}</span>
+      <div class="form-group">
+        <label for="usernameInput">Username</label>
+        <input type="text" class="form-control" id="usernameInput" name="usernameInput" [(ngModel)]="newUser.username">
+      </div>
+      <div class="form-group">
+        <label for="passwordInput">Password</label>
+        <input type="password" class="form-control" id="passwordInput" name="passwordInput" [(ngModel)]="newUser.password">
+      </div>
+      <div class="form-group form-check">
+        <input type="checkbox" class="form-check-input" id="isAdmin" [(ngModel)]="newUser.admin">
+        <label class="form-check-label" for="isAdmin">Is admin?</label>
+      </div>
+      <button type="submit" class="btn btn-primary" (click)="create()">Create</button>
+    </div>
+    <div class="col-md-5 offset-md-2">
+      <h5>Search user</h5>
+      <div class="form-group">
+        <label for="usernameInputSearch">Username</label>
+        <input type="text" class="form-control" id="usernameInputSearch" name="usernameInputSearch" [(ngModel)]="usernameSearch">
+      </div>
+      <button type="submit" class="btn btn-primary" (click)="search()">Search</button>
+      <span>{{messageSearch}}</span>
+      <div [hidden]="!userSearch.username">
+        <h5>Create user</h5>
+        <div class="form-group">
+          <label for="usernameInput">Username</label>
+          <input type="text" class="form-control" id="usernameInput" name="usernameInput" [(ngModel)]="userSearch.username" disabled>
+        </div>
+        <div class="form-group">
+          <label for="passwordInput">New password</label>
+          <input type="password" class="form-control" id="passwordInput" name="passwordInput" [(ngModel)]="newPassword">
+        </div>
+        <div class="form-group form-check">
+          <input type="checkbox" class="form-check-input" id="isAdminSearch" [(ngModel)]="userSearch.admin">
+          <label class="form-check-label" for="isAdminSearch">Is admin?</label>
+        </div>
+        <div class="row">
+          <button type="submit" class="btn btn-primary mx-auto" (click)="update()">Update</button>
+          <button type="submit" class="btn btn-primary mx-auto" (click)="delete()">Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
