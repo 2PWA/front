@@ -15,23 +15,23 @@ export class ShowService {
   }
 
   public listAll(): Observable<ShowDetail[]> {
-    return this.httpClient.get<ShowDetail[]>('http://api.tvmaze.com/shows');
+    return this.httpClient.get<ShowDetail[]>('https://api.tvmaze.com/shows');
   }
 
   public searchByKeywords(keywords: string): Observable<Show[]> {
-    return this.httpClient.get<Show[]>('http://api.tvmaze.com/search/shows?q=' + keywords);
+    return this.httpClient.get<Show[]>('https://api.tvmaze.com/search/shows?q=' + keywords);
   }
 
   public getCast(idShow: number): Observable<Cast[]> {
-    return this.httpClient.get<Cast[]>('http://api.tvmaze.com/shows/' + idShow + '/cast');
+    return this.httpClient.get<Cast[]>('https://api.tvmaze.com/shows/' + idShow + '/cast');
   }
 
   public getSeasons(idShow: number): Observable<Season[]> {
-    return this.httpClient.get<Season[]>('http://api.tvmaze.com/shows/' + idShow + '/seasons');
+    return this.httpClient.get<Season[]>('https://api.tvmaze.com/shows/' + idShow + '/seasons');
   }
 
   public getEpisodes(idSeason: number): Observable<Episode[]> {
-    return this.httpClient.get<Episode[]>('http://api.tvmaze.com/seasons/' + idSeason + '/episodes');
+    return this.httpClient.get<Episode[]>('https://api.tvmaze.com/seasons/' + idSeason + '/episodes');
   }
 
   public setNewSelectedShow(show: ShowDetail): void {
